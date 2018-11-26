@@ -4,6 +4,8 @@ This is an implementation of "Blind Video Quality Assessment with Weakly Supervi
 
  And this document will walk you through all the files contained in the package.
 
+Note that this implement doesn't include the resampling strategy because I didn't fully understand that part.
+
 ## FILES
 
 ### ms_ssim
