@@ -20,8 +20,8 @@ class LogisticRegression:
             batch_y = y[index[start:start + self.batch_size]]
             yield batch_x, batch_y
 
-    def calculateLoss(self, prediction, label):
-        loss = np.mean(label * np.log(prediction) + (1 - label) * np.log(1 - prediction))
+    def calculateCrossEntropyLoss(self, prediction, label):
+        loss = np.sum(label * np.log(prediction))
 
         return loss
 
@@ -29,13 +29,17 @@ class LogisticRegression:
         e = np.exp(np.matmul(x, self.weight))
         return e / (1 + e)
 
+    def softmax(self, x):
+        e = np.exp(np.matmul(x, self.weight))
+        return e / np.sum(e)
+
     def train(self, x, y):
         for i in range(self.max_epoch):
             step = 0
             for batch_x, batch_y in self.getBatch(x, y):
                 # forward
-                output = self.sigmoid(x)
-                loss = self.calculateLoss(output, batch_y)
+                output = self.softmax(batch_x)
+                loss = self.calculateCrossEntropyLoss(output, batch_y)
                 step += 1
                 print('Epoch {}, step {}, loss {:.5f}'.format(i, step, loss))
 
@@ -44,3 +48,8 @@ class LogisticRegression:
 
                 # update
                 self.weight += self.lr * grad_weight
+
+    def predict(self, x):
+        return self.softmax(x)
+
+    
