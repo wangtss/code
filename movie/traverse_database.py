@@ -20,7 +20,7 @@ result, data = os.path.join(temp, 'result'), os.path.join(temp, 'data')
 s_movie, t_movie, movie = [], [], []
 
 # run on database
-for i in range(len(file_list)):
+for i in range(0, len(file_list)):
     # delete last temporary files
     if os.path.exists(temp):
         shutil.rmtree(temp)
@@ -51,4 +51,4 @@ for i in range(len(file_list)):
     t = np.array(t_movie, dtype=np.float32)
     a = np.array(movie, dtype=np.float32)
 
-    sio.savemat('score.mat', {'s': s, 't': t, 'a': a})    
+    sio.savemat('score_30.mat', {'s': s, 't': t, 'a': a})    
